@@ -257,6 +257,7 @@ Arguments:
 
 - hashed_password: bytes type
 - password: string type
+
 Use bcrypt to validate that the provided password matches the hashed password.
 
     bob@dylan:~$ cat main.py
