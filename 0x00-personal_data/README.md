@@ -185,6 +185,7 @@ Filtered fields:
 - phone
 - ssn
 - password
+
 Only your main function should run when the module is executed.
 
     bob@dylan:~$ cat main.sql
