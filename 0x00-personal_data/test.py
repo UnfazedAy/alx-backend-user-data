@@ -1,5 +1,4 @@
-import re
+#!/usr/bin/python3
+import logging
 
-txt = "The rain in Spain"
-x = re.sub("\s", "9", txt)
-print(x)
+logging.info("This is a debug level")
