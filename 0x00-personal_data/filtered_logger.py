@@ -61,6 +61,8 @@ def get_logger() -> logging.Logger:
 
 # start of task 3
 def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ A function that gets the database credentials and
+    returns mysql connection"""
     db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     db_name = os.getenv("PERSONAL_DATA_DB_NAME")
     db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
