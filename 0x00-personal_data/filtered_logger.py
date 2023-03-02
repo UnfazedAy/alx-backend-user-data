@@ -20,8 +20,8 @@ def filter_datum(
     field values and returns the log message obfuscated
     """
     for field in fields:
-        message = re.sub(field+'=.*?'+separator,
-                         field+'='+redaction+separator, message)
+        message = re.sub(f'{field}=.*?{separator}',
+                         f'{field}={redaction}{separator}', message)
     return message
 
 
@@ -63,14 +63,36 @@ def get_logger() -> logging.Logger:
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ A function that gets the database credentials and
     returns mysql connection"""
-    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
     db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     db_passwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
 
     return mysql.connector.connect(
-        host=db_host,
         user=db_user,
         passwd=db_passwd,
+        host=db_host,
         database=db_name
     )
+
+
+def main() -> None:
+    """
+    A function that retrieves all roes in the users table and
+    displays each row under a filtered format.
+    """
+    connection = get_db()
+    logger = get_logger()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users")
+    for row in cursor.fetchall():
+        str_row = ''.join(
+            f"{field}={val}; " for field, val in zip(cursor.column_names, row)
+        )
+        logger.info(str_row)
+    cursor.close()
+    connection.close()
+
+
+if __name__ == "__main__":
+    main()
