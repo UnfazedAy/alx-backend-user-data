@@ -76,6 +76,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     )
 
 
+# Start of task 4
 def main() -> None:
     """
     A function that retrieves all roes in the users table and
