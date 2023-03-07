@@ -23,13 +23,16 @@ class Auth():
         #     return False
         # return True
 
+        # Modification for final task 101
         if path is None:
             return True
         elif excluded_paths is None or excluded_paths == []:
             return True
         else:
-            for pattern in excluded_paths:
-                if fnmatch.fnmatch(path, pattern):
+            path = path.rstrip('/')
+            for excluded_path in excluded_paths:
+                excluded_path = excluded_path.rstrip('/')
+                if fnmatch.fnmatch(path, excluded_path):
                     return False
             return True
 
