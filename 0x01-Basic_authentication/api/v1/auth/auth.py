@@ -14,14 +14,14 @@ class Auth():
         """Public method for require auth"""
 
         unaccepted_path = f"{path}/"
-
         if path is None:
             return True
         if path in excluded_paths or unaccepted_path in excluded_paths:
             return False
         if excluded_paths is None or excluded_paths == []:
             return True
-        return True
+        if path not in excluded_paths:
+            return True
 
     def authorization_header(self, request=None) -> str:
         """A method to authorize the header requests"""
