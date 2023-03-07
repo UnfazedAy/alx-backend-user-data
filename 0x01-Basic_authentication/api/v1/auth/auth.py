@@ -17,9 +17,9 @@ class Auth():
 
         if path is None:
             return True
-        elif path in excluded_paths or unaccepted_path in excluded_paths:
+        if path in excluded_paths or unaccepted_path in excluded_paths:
             return False
-        elif excluded_paths is None or excluded_paths == []:
+        if excluded_paths is None or excluded_paths == []:
             return True
         return True
 
