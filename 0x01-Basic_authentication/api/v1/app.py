@@ -22,6 +22,7 @@ if auth_type == "auth":
 
 @app.before_request
 def before_request() -> None:
+    """Executes before the who routes does"""
     excluded_path = [
         '/api/v1/status/',
         '/api/v1/unauthorized/',
