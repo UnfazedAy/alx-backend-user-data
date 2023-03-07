@@ -2,6 +2,7 @@
 """authentication module"""
 
 from flask import request
+import fnmatch
 from typing import List, TypeVar
 
 
@@ -13,14 +14,24 @@ class Auth():
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Public method for require auth"""
 
-        unaccepted_path = f"{path}/"
+        # unaccepted_path = f"{path}/"
+        # if path is None:
+        #     return True
+        # elif excluded_paths is None or excluded_paths == []:
+        #     return True
+        # elif path in excluded_paths or unaccepted_path in excluded_paths:
+        #     return False
+        # return True
+
         if path is None:
             return True
         elif excluded_paths is None or excluded_paths == []:
             return True
-        elif path in excluded_paths or unaccepted_path in excluded_paths:
-            return False
-        return True
+        else:
+            for pattern in excluded_paths:
+                if fnmatch.fnmatch(path, pattern):
+                    return False
+            return True
 
     def authorization_header(self, request=None) -> str:
         """A method to authorize the header requests"""
