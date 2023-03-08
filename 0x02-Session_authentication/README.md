@@ -756,7 +756,7 @@ In a second terminal:
 ## 10. Sessions in database
 Since the beginning, all Session IDs are stored in memory. It means, if your application stops, all Session IDs are lost.
 
-For avoid that, you will create a new authentication system, based on Session ID stored in database (for us, it will be in a file, like User).
+For you to avoid that, you will create a new authentication system, based on Session ID stored in database (for us, it will be in a file, like User).
 
 Create a new model UserSession in models/user_session.py that inherits from Base:
 
