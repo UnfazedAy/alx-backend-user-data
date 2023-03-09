@@ -11,6 +11,9 @@ class SessionAuth(Auth):
     user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
+        """method to create session id so as to
+        to be able to retrieve user_id based on session
+        """
         if user_id is None or type(user_id) is not str:
             return None
         session_id = str(uuid4())
