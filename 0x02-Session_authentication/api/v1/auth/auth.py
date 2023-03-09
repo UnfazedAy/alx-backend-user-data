@@ -4,6 +4,7 @@
 from flask import request
 import fnmatch
 from typing import List, TypeVar
+import os
 
 
 class Auth():
@@ -14,16 +15,6 @@ class Auth():
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Public method for require auth"""
 
-        # unaccepted_path = f"{path}/"
-        # if path is None:
-        #     return True
-        # elif excluded_paths is None or excluded_paths == []:
-        #     return True
-        # elif path in excluded_paths or unaccepted_path in excluded_paths:
-        #     return False
-        # return True
-
-        # Modification for final task 101
         if path is None:
             return True
         elif excluded_paths is None or excluded_paths == []:
@@ -47,3 +38,12 @@ class Auth():
     def current_user(self, request=None) -> TypeVar('User'):
         """current user method"""
         return None
+
+    def session_cookie(self, request=None):
+        """
+        Method that returns a cookie value from a request
+        """
+        if request is None:
+            return None
+        user_cookies = os.getenv('SESSION_NAME')
+        return request.cookies.get(user_cookies)
