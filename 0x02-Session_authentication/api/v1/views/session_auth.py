@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """module of session authentication for views"""
 
-from flask import jsonify, abort, request
 from api.v1.views import app_views
+from flask import jsonify, abort, request
 from models.user import User
 from typing import Tuple
 import os
@@ -17,10 +17,10 @@ def auth_session_login() -> Tuple[str, int]:
     email = request.form.get('email')
     password = request.form.get('password')
 
-    if email is None or '':
+    if email is None or email == '':
         return jsonify({"error": "email missing"}), 400
 
-    if password is None or '':
+    if password is None or password == '':
         return jsonify({"error": "password missing"}), 400
     users = User.search({"email": email})
 
