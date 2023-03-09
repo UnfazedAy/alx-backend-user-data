@@ -25,16 +25,16 @@ def auth_session_login() -> Tuple[str, int]:
 
     users = User.search({"email": email})
 
-    if not users or users == []:
+    if users is None or users == []:
         return jsonify({"error": "no user found for this email"}), 404
 
     for user in users:
-        if user.is_valid_password(password):
-            from api.v1.app import auth
-            session_id = auth.create_session(user.id)
-            resp = jsonify(user.to_json())
-            session_name = os.getenv('SESSION_NAME')
-            resp.set_cookie(session_name, session_id)
-            return resp
+        if not user.is_valid_password(password):
+            return jsonify({"error": "wrong password"}), 401
 
-    return jsonify({"error": "wrong password"}), 401
+        from api.v1.app import auth
+        session_id = auth.create_session(user.id)
+        response = jsonify(user.to_json())
+        session_name = os.getenv('SESSION_NAME')
+        response.set_cookie(session_name, session_id)
+        return response
