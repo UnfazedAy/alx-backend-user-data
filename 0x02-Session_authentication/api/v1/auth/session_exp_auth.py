@@ -21,7 +21,7 @@ class SessionExpAuth(SessionAuth):
         """
         Overloads the create session and returns the session id
         """
-        session_id = super.create_session(user_id)
+        session_id = super().create_session(user_id)
         if session_id is None:
             return None
 
@@ -43,7 +43,7 @@ class SessionExpAuth(SessionAuth):
         if session_id not in self.user_id_by_session_id.keys():
             return None
 
-        session_info = self.user_id_by_session[session_id]
+        session_info = self.user_id_by_session_id[session_id]
         if self.session_duration <= 0:
             return session_info.get('user_id')
 
