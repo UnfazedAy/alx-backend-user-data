@@ -14,26 +14,26 @@ The model will have the following attributes:
 - session_id, a nullable string
 - reset_token, a nullable string
 
-bob@dylan:~$ cat main.py
-#!/usr/bin/env python3
-"""
-Main file
-"""
-from user import User
+        bob@dylan:~$ cat main.py
+        #!/usr/bin/env python3
+        """
+        Main file
+        """
+        from user import User
 
-print(User.__tablename__)
+        print(User.__tablename__)
 
-for column in User.__table__.columns:
-    print("{}: {}".format(column, column.type))
+        for column in User.__table__.columns:
+            print("{}: {}".format(column, column.type))
 
-bob@dylan:~$ python3 main.py
-users
-users.id: INTEGER
-users.email: VARCHAR(250)
-users.hashed_password: VARCHAR(250)
-users.session_id: VARCHAR(250)
-users.reset_token: VARCHAR(250)
-bob@dylan:~$
+        bob@dylan:~$ python3 main.py
+        users
+        users.id: INTEGER
+        users.email: VARCHAR(250)
+        users.hashed_password: VARCHAR(250)
+        users.session_id: VARCHAR(250)
+        users.reset_token: VARCHAR(250)
+        bob@dylan:~$
 
 **Repo:**
 
@@ -389,3 +389,49 @@ Terminal 2:
 - Directory: 0x03-user_authentication_service
 - File: app.py
 
+## 8. Credentials validation
+In this task, you will implement the Auth.valid_login method. It should expect email and password required arguments and return a boolean.
+
+Try locating the user by email. If it exists, check the password with bcrypt.checkpw. If it matches return True. In any other case, return False.
+
+    bob@dylan:~$ cat main.py
+    #!/usr/bin/env python3
+    """
+    Main file
+    """
+    from auth import Auth
+
+    email = 'bob@bob.com'
+    password = 'MyPwdOfBob'
+    auth = Auth()
+
+    auth.register_user(email, password)
+
+    print(auth.valid_login(email, password))
+
+    print(auth.valid_login(email, "WrongPwd"))
+
+    print(auth.valid_login("unknown@email", password))
+
+    bob@dylan:~$ python3 main.py
+    True
+    False
+    False
+    bob@dylan:~$
+
+**Repo:**
+
+- GitHub repository: alx-backend-user-data
+- Directory: 0x03-user_authentication_service
+- File: auth.py
+
+## 9. Generate UUIDs
+In this task you will implement a _generate_uuid function in the auth module. The function should return a string representation of a new UUID. Use the uuid module.
+
+Note that the method is private to the auth module and should NOT be used outside of it.
+
+**Repo:**
+
+- GitHub repository: alx-backend-user-data
+- Directory: 0x03-user_authentication_service
+- File: auth.py
