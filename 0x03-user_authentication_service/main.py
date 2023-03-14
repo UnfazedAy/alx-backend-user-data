@@ -110,8 +110,25 @@
 # except ValueError as err:
 #     print("could not create a new user: {}".format(err))
     
+# """
+# Main file for task 8
+# """
+# from auth import Auth
+
+# email = 'bob@bob.com'
+# password = 'MyPwdOfBob'
+# auth = Auth()
+
+# auth.register_user(email, password)
+
+# print(auth.valid_login(email, password))
+
+# print(auth.valid_login(email, "WrongPwd"))
+
+# print(auth.valid_login("unknown@email", password))
+
 """
-Main file for task 8
+Main file for task 10
 """
 from auth import Auth
 
@@ -121,8 +138,5 @@ auth = Auth()
 
 auth.register_user(email, password)
 
-print(auth.valid_login(email, password))
-
-print(auth.valid_login(email, "WrongPwd"))
-
-print(auth.valid_login("unknown@email", password))
+print(auth.create_session(email))
+print(auth.create_session("unknown@email.com"))
