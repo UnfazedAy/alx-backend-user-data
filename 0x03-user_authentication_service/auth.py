@@ -75,5 +75,5 @@ class Auth:
         try:
             self._db.update_user(id=user_id, session_id=None)
             return None
-        except Exception:
+        except ValueError:
             return None
