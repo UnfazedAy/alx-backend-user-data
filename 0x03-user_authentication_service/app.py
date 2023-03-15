@@ -23,7 +23,7 @@ def register():
 
     try:
         user = AUTH.register_user(email, password)
-        return jsonify({"email": f"{email}", "message": "user created"})
+        return jsonify({"email": f"{user.email}", "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
@@ -55,6 +55,19 @@ def logout():
         return redirect(url_for('root'))
 
     abort(403)
+
+
+@app.route("/profile", methods=['GET'], strict_slashes=False)
+def profile():
+    """View to handle the user profile"""
+    try:
+        session_id = request.cookies.get('session_id')
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            return jsonify({"email": f"{user.email}"}), 200
+
+    except Exception:
+        abort(403)
 
 
 if __name__ == '__main__':
