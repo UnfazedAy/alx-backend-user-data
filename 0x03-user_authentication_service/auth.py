@@ -99,7 +99,6 @@ class Auth:
                 hashed_password=passwd,
                 reset_token=None
             )
-            return None
 
         except NoResultFound:
             raise ValueError
